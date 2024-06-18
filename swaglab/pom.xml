@@ -87,8 +87,10 @@
             <version>3.0.0-M5</version>
             <configuration>
                 <includes>
-                    <include>**/*.java</include>  <!-- Adjust pattern to match your test class names -->
+                    <include>**/TestEntireFlowRunner.java</include>
+                    <include>**/entireFlow.java</include>
                 </includes>
+                <testSourceDirectory>${project.basedir}/swaglab</testSourceDirectory>
             </configuration>
             </plugin>          
         </plugins>        
