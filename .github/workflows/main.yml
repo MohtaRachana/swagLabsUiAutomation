@@ -25,7 +25,7 @@ jobs:
       - name: Run Login Scenarios
         working-directory: swaglab  # Adjust this to the relative path of your Maven project
         run: |
-          mvn clean test -Dtest=TestLoginRunner
+          mvn clean test -Dtest=TestEntireFlowRunner
 
 
       - name: Archive test results
