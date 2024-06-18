@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Run Login Scenarios
-        working-directory: C:\Users\ManishGupta\eclipse-workspace\Swag_Labs_UI_Automation\src\test  # Adjust this to the relative path of your Maven project
+        working-directory: swaglab  # Adjust this to the relative path of your Maven project
         run: |
           mvn clean test -Dtest=TestLoginRunner
 
