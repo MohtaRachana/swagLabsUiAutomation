@@ -87,7 +87,7 @@
             <version>3.0.0-M5</version>
             <configuration>
                 <includes>
-                    <include>swaglab/TestEntireFlowRunner.java</include>  <!-- Adjust pattern to match your test class names -->
+                    <include>**/*.java</include>  <!-- Adjust pattern to match your test class names -->
                 </includes>
             </configuration>
             </plugin>          
