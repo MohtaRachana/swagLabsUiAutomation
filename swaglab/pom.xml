@@ -82,12 +82,14 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.version}</version>
-                <configuration>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                </configuration>
+               <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <includes>
+                    <include>**/TestEntireFlowRunner.java</include>  <!-- Adjust pattern to match your test class names -->
+                </includes>
+            </configuration>
             </plugin>          
         </plugins>        
     </build>       
