@@ -32,8 +32,7 @@ jobs:
 
       - name: Run Login Scenarios
         working-directory: swaglab  # Set the working directory to swaglab
-        run: |
-          mvn clean test -Dtest=TestEntireFlowRunner
+        run: mvn clean test -Dtest=TestEntireFlowRunner
 
       - name: Generate Test Report
         uses: erikbos/karate-action@main
@@ -45,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: test-summary-report
-          path: test-report.txt
+          path: swaglab/target/surefire-reports
 
       - name: Archive test results
         if: always()
