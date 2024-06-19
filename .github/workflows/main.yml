@@ -36,16 +36,10 @@ jobs:
           mvn clean test -Dtest=TestEntireFlowRunner
 
       - name: Generate Test Report
-        run: |
-         echo "Generating test report summary..."
-          touch test-report.txt
-          echo "Test results summary" > test-report.txt
-          echo "Date: $(date)" >> test-report.txt
-          echo "Test summary:" >> test-report.txt
-          echo "Total tests: $(grep -c '<testcase' target/*.xml)" >> test-report.txt
-          echo "Passed tests: $(grep -c '<testcase.*<success' target/*.xml)" >> test-report.txt
-          echo "Failed tests: $(grep -c '<testcase.*<failure' target/*.xml)" >> test-report.txt
-          echo "Skipped tests: $(grep -c '<testcase.*<skipped' target/*.xml)" >> test-report.txt
+        uses: erikbos/karate-action@main
+        with:
+          tests: |
+            swaglab/entireFlow.feature
  
       - name: Upload Test Report
         uses: actions/upload-artifact@v2
