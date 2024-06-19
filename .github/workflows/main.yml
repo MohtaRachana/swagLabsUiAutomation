@@ -39,7 +39,7 @@ jobs:
         uses: erikbos/karate-action@main
         with:
           tests: |
-            swaglab/entireFlow.feature
+            swaglab/src/test/java/com/ui/automation/completeflow/entireFlow.feature
  
       - name: Upload Test Report
         uses: actions/upload-artifact@v2
