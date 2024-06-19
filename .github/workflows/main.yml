@@ -35,21 +35,11 @@ jobs:
         run: |
           mvn clean test -Dtest=TestEntireFlowRunner
 
-      - name: Generate Test Report
-        run: |
-          echo "Generating test report..."
-          # Here you would generate your report file, for example:
-          echo "Test results summary" > test-report.txt
-          echo "Date: $(date)" >> test-report.txt
-          echo "Test summary:" >> test-report.txt
-          echo "Total tests: 10" >> test-report.txt
-          echo "Passed: 8" >> test-report.txt
-          echo "Failed: 2" >> test-report.txt
- 
-      - name: Upload Test Report
+      - name: Archive test results
+        if: always()
         uses: actions/upload-artifact@v2
         with:
-           name: test-summary-report
-           path: swaglab/target/surefire-report
+          name: test-results
+          path: swaglab/target/surefire-reports
         
       
