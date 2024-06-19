@@ -52,9 +52,9 @@ jobs:
           name: test-report
           path: test-report.txt
 
-     # - name: Archive test results
-      #  if: always()
-       # uses: actions/upload-artifact@v2
-        #with:
-         # name: test-results
-          #path: swaglab/target/surefire-reports  # Adjust the path to your test reports
+      - name: Archive test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: swaglab/target/surefire-reports  # Adjust the path to your test reports
