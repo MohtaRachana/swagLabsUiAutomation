@@ -37,19 +37,20 @@ jobs:
 
       - name: Generate Test Report
         run: |
-          echo "Generating test report..."
-          # Here you would generate your report file, for example:
+         echo "Generating test report summary..."
+          touch test-report.txt
           echo "Test results summary" > test-report.txt
           echo "Date: $(date)" >> test-report.txt
           echo "Test summary:" >> test-report.txt
-          echo "Total tests: 10" >> test-report.txt
-          echo "Passed: 8" >> test-report.txt
-          echo "Failed: 2" >> test-report.txt
+          echo "Total tests: $(grep -c '<testcase' target/surefire-reports/*.xml)" >> test-report.txt
+          echo "Passed tests: $(grep -c '<testcase.*<success' target/surefire-reports/*.xml)" >> test-report.txt
+          echo "Failed tests: $(grep -c '<testcase.*<failure' target/surefire-reports/*.xml)" >> test-report.txt
+          echo "Skipped tests: $(grep -c '<testcase.*<skipped' target/surefire-reports/*.xml)" >> test-report.txt
  
       - name: Upload Test Report
         uses: actions/upload-artifact@v2
         with:
-          name: test-report
+          name: test-summary-report
           path: test-report.txt
 
       - name: Archive test results
