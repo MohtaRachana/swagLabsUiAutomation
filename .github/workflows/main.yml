@@ -38,7 +38,7 @@ jobs:
         uses: erikbos/karate-action@main
         with:
           tests: |
-             swaglab/src/test/java/com/ui/automation/completeflow/entireFlow.feature
+             swaglab/src/test/java/com/ui/automation/completeflow/TestEntireFlowRunner.java
  
       - name: Upload Test Report
         uses: actions/upload-artifact@v2
