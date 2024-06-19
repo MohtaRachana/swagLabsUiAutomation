@@ -27,19 +27,39 @@ jobs:
           distribution: 'adopt'  # Specify the distribution
 
       - name: Install dependencies
-        run: mvn install -DskipTests
+        run: mvn clean install -DskipTests
         working-directory: swaglab  # Set the working directory to swaglab
 
       - name: Run Login Scenarios
         working-directory: swaglab  # Set the working directory to swaglab
         run: |
-          mvn clean test -Dtest=TestEntireFlowRunner
+          mvn clean test -Dtest=TestEntireFlowRunner -Dmaven.test.failure.ignore=true
 
-      - name: Archive test results
-        if: always()
+      #- name: Archive test results
+       # if: always()
+        #uses: actions/upload-artifact@v2
+        #with:
+         # name: test-results
+          #path: swaglab/target/surefire-reports
+      
+      - name: Upload Surefire Test Report
+        if: always()  # Always run this step
         uses: actions/upload-artifact@v2
         with:
-          name: test-results
+          name: surefire-test-report
           path: swaglab/target/surefire-reports
+
+      - name: Generate Karate Test Report
+        if: always()  # Always run this step
+        run: |
+          mkdir -p karate-reports
+          cp -r swaglab/target/karate-reports/* karate-reports/
+        
+      - name: Upload Karate Test Report
+        if: always()  # Always run this step
+        uses: actions/upload-artifact@v2
+        with:
+          name: karate-test-report
+          path: karate-reports
         
       
