@@ -1,7 +1,7 @@
 Feature: Complete flow of the application
 
   Background: 
-   * configure driver = { type: 'chrome', start: true, addOptions: ['--incognito'] }
+   * configure driver = { type: 'chrome' }
 #* configure driver = { type: 'chrome', start: true, webDriverSession: { desiredCapabilities: { chromeOptions: { args: [ '--disable-popup-blocking', '--disable-infobars' ] } } } }
 
 
