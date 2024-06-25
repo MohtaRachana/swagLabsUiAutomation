@@ -7,7 +7,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  
+    runs-on: windows-latest  
 
     steps:
       - name: Checkout repository
@@ -20,18 +20,26 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('swaglab/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
 
-      - name: Install Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
+      - name: Download Chrome Installer
+        run: Invoke-WebRequest -Uri 'https://dl.google.com/chrome/install/latest/chrome_installer.exe' -OutFile 'chrome_installer.exe'
 
-      - name: Find available port and start Chrome
-        id: chrome
+      - name: Install Chrome
+        run: .\chrome_installer.exe /silent /install  # Install Chrome silently
+
+      - name: Download ChromeDriver
         run: |
-          PORT=$(shuf -i 8000-9999 -n 1)
-          echo "PORT=$PORT" >> $GITHUB_ENV
-          google-chrome --remote-debugging-port=$PORT --headless --disable-gpu --no-sandbox &
-        shell: bash
+          $chromeDriverVersion = Invoke-RestMethod -Uri 'https://chromedriver.storage.googleapis.com/LATEST_RELEASE'
+          Invoke-WebRequest -Uri "https://chromedriver.storage.googleapis.com/$chromeDriverVersion/chromedriver_win32.zip" -OutFile "chromedriver.zip"
+          Expand-Archive chromedriver.zip -DestinationPath .
+
+      - name: Start Chrome Headless
+        run: |
+          $env:PATH += ";$PWD"
+          $PORT = 9222
+          echo "PORT=$PORT" >> $env:GITHUB_ENV
+          Start-Process chrome --args="--headless --remote-debugging-port=$PORT --disable-gpu --no-sandbox" -NoNewWindow -Wait
+        shell: powershell
+
 
       - name: Set up JDK 11
         uses: actions/setup-java@v2
