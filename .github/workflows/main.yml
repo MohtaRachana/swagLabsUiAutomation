@@ -20,8 +20,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('swaglab/pom.xml') }}
           restore-keys: ${{ runner.os }}-maven
 
-     
-
       - name: Install Chrome
         run: |
           sudo apt-get update
@@ -41,22 +39,16 @@ jobs:
           java-version: '11'
           distribution: 'adopt'  # Specify the distribution
 
-      - name: Install dependencies
+      - name: Install dependencies(Skip Test)
         run: mvn clean install -DskipTests
         working-directory: swaglab  # Set the working directory to swaglab
 
-      - name: Run Login Scenarios
+      - name: Run SwagLab Scenarios
         working-directory: swaglab  # Set the working directory to swaglab
         run: |
           mvn clean test -Dtest=TestEntireFlowRunner -Dmaven.test.failure.ignore=true
 
-      #- name: Archive test results
-       # if: always()
-        #uses: actions/upload-artifact@v2
-        #with:
-         # name: test-results
-          #path: swaglab/target/surefire-reports
-      
+            
       - name: Upload Surefire Test Report
         if: always()  # Always run this step
         uses: actions/upload-artifact@v2
